@@ -1,0 +1,14 @@
+{
+  "q1-decompose": {
+    "B": "with_skill",
+    "A": "baseline"
+  },
+  "q2-staffing": {
+    "A": "with_skill",
+    "B": "baseline"
+  },
+  "q3-slo": {
+    "A": "with_skill",
+    "B": "baseline"
+  }
+}
