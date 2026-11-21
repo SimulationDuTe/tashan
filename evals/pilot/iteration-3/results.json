@@ -1,0 +1,103 @@
+{
+  "tasks": [
+    {
+      "task": "h1-latency",
+      "scores": {
+        "with_skill": [
+          15,
+          14
+        ],
+        "generic": [
+          14,
+          13
+        ]
+      },
+      "votes": [
+        "with_skill",
+        "with_skill"
+      ]
+    },
+    {
+      "task": "h2-team-throughput",
+      "scores": {
+        "with_skill": [
+          15,
+          14
+        ],
+        "generic": [
+          14,
+          15
+        ]
+      },
+      "votes": [
+        "with_skill",
+        "generic"
+      ]
+    },
+    {
+      "task": "h4-db-cost",
+      "scores": {
+        "with_skill": [
+          15,
+          14
+        ],
+        "generic": [
+          14,
+          15
+        ]
+      },
+      "votes": [
+        "with_skill",
+        "generic"
+      ]
+    },
+    {
+      "task": "s1-dict-complexity",
+      "scores": {
+        "generic": [
+          9,
+          13
+        ],
+        "with_skill": [
+          12,
+          15
+        ]
+      },
+      "votes": [
+        "with_skill",
+        "with_skill"
+      ]
+    }
+  ],
+  "votes": {
+    "with_skill": 6,
+    "generic": 2
+  },
+  "means": {
+    "with_skill": 14.25,
+    "generic": 13.375
+  },
+  "judge_scores": {
+    "with_skill": [
+      15,
+      14,
+      15,
+      14,
+      15,
+      14,
+      12,
+      15
+    ],
+    "generic": [
+      14,
+      13,
+      14,
+      15,
+      14,
+      15,
+      9,
+      13
+    ]
+  },
+  "delta": -0.875
+}

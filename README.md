@@ -57,7 +57,9 @@ Tashan 针对的是这些失效模式。它不提供领域知识，只约束思�
 
 2026-11-21 跑过一次小样本 pilot（8 题 × 2 臂、两个顺序对调的盲裁判，过程与原始数据见 [evals/pilot/iteration-1/benchmark.md](evals/pilot/iteration-1/benchmark.md)）：有 skill 的答案在 13 个有效判定中赢 11 个，五维总分 14.38 vs 13.69（满分 15），输出长度 1.05×。样本小、裁判同族、没有「等长通用提示」对照组，所以这只是方向信号，不足以宣称通用提升；简单题上它仍可能过度展开。
 
-随后按这两个失败模式打了三处补丁（答完即停、未给的数量是未知、高价决定要有一条能证伪的测试），复测 3 题 × 2 臂：6 个判定全部判给新版本，13.33 vs 11.50，且不再出现虚构「吞吐没掉」或 simple 题长篇。过程见 [evals/pilot/iteration-2/RESULT.md](evals/pilot/iteration-2/RESULT.md)；这仍不是通用结论。
+随后按这两个失败模式打了三处补丁（答完即停、未给的数量是未知、高价决定要有一条能证伪的测试），复测 3 题 × 2 臂：6 个判定全部判给新版本，13.33 vs 11.50，且不再出现虚构「吞吐没掉」或 simple 题长篇。过程见 [evals/pilot/iteration-2/RESULT.md](evals/pilot/iteration-2/RESULT.md)。
+
+接着用一份等长的通用思考提示做对照（iteration-3，4 题，对照提示 3,678 字符 vs SKILL.md 4,193 字符）：skill 6:2 略胜，五维 14.25 vs 13.38，但两道量化分析题裁判各判一边。也就是说，相对「无提示」的优势里有一部分只是「被要求认真思考」带来的；目前稳定的差异集中在诊断题的未知量标注与可证伪测试、以及简单题上不展开。见 [evals/pilot/iteration-3/RESULT.md](evals/pilot/iteration-3/RESULT.md)。这仍不是通用提升的证据。
 
 欢迎通过 Issue 反馈使用效果与触发情况。
 

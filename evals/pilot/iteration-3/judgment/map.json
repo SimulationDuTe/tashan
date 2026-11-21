@@ -1,0 +1,18 @@
+{
+  "h1-latency": {
+    "A": "with_skill",
+    "B": "generic"
+  },
+  "h2-team-throughput": {
+    "A": "with_skill",
+    "B": "generic"
+  },
+  "h4-db-cost": {
+    "A": "with_skill",
+    "B": "generic"
+  },
+  "s1-dict-complexity": {
+    "B": "with_skill",
+    "A": "generic"
+  }
+}
