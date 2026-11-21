@@ -1,0 +1,14 @@
+{
+  "q1-decompose": {
+    "A": "with_skill",
+    "B": "generic"
+  },
+  "q2-staffing": {
+    "A": "with_skill",
+    "B": "generic"
+  },
+  "q3-slo": {
+    "B": "with_skill",
+    "A": "generic"
+  }
+}

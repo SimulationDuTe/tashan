@@ -1,0 +1,104 @@
+{
+  "tasks": [
+    {
+      "task": "q1-decompose",
+      "votes": [
+        "generic",
+        "tie"
+      ],
+      "five": {
+        "with_skill": [
+          15,
+          15
+        ],
+        "generic": [
+          15,
+          15
+        ]
+      },
+      "six": {
+        "with_skill": [
+          17,
+          18
+        ],
+        "generic": [
+          18,
+          18
+        ]
+      }
+    },
+    {
+      "task": "q2-staffing",
+      "votes": [
+        "tie",
+        "generic"
+      ],
+      "five": {
+        "with_skill": [
+          14,
+          14
+        ],
+        "generic": [
+          14,
+          15
+        ]
+      },
+      "six": {
+        "with_skill": [
+          17,
+          17
+        ],
+        "generic": [
+          17,
+          18
+        ]
+      }
+    },
+    {
+      "task": "q3-slo",
+      "votes": [
+        "with_skill",
+        "tie"
+      ],
+      "five": {
+        "generic": [
+          14,
+          15
+        ],
+        "with_skill": [
+          15,
+          15
+        ]
+      },
+      "six": {
+        "generic": [
+          17,
+          18
+        ],
+        "with_skill": [
+          18,
+          18
+        ]
+      }
+    }
+  ],
+  "votes": {
+    "generic": 2,
+    "tie": 3,
+    "with_skill": 1
+  },
+  "means5": {
+    "generic": 14.667,
+    "with_skill": 14.667
+  },
+  "means6": {
+    "generic": 17.667,
+    "with_skill": 17.5
+  },
+  "samples5": {
+    "generic": 6,
+    "with_skill": 6
+  },
+  "delta5": 0.0,
+  "delta6": 0.167
+}

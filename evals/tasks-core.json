@@ -1,0 +1,177 @@
+{
+  "skill": "tashan",
+  "version": "core-capabilities-1",
+  "design": "Three capabilities the skill claims: interrogation (ask the question that changes the answer), first principles (derive from constraints, not precedent), borrowing (find the structurally isomorphic classic problem, test its premises, rebuild). Each task has a default answer that looks competent and is wrong or incomplete because one premise is unexamined. decisive_unknown / classic_problem is the oracle and is never shown to the model under test. Tasks marked two_turn include a scripted user reply so the follow-up can be scored.",
+  "capabilities": {
+    "interrogation": "The user states a goal and a proposed solution; one unstated fact flips the recommendation. Strong answers isolate it, ask at most three decisive questions (or state the branch), and do not deliver the requested plan as if the premise were settled.",
+    "first_principles": "The request invokes a borrowed authority (best practice, industry standard, a number) whose premise does not hold here. Strong answers derive from the actual constraints, show which constraint drives the answer, and say what would change it.",
+    "borrowing": "A classic problem from another field shares the causal structure; the surface looks unrelated and the classic method's premises partly fail. Strong answers name it, state the mapping in one sentence, mark failing premises, borrow the mechanism, and rebuild for these constraints."
+  },
+  "tasks": [
+    {
+      "id": "q1-decompose",
+      "capability": "interrogation",
+      "two_turn": true,
+      "prompt": "我们是一个 6 人的后端团队，维护一个电商单体。老板听说微服务是趋势，让我出个拆分方案，下季度开始。你直接给我一个分阶段的拆分计划。",
+      "decisive_unknown": "What pain is driving the split: deploy coupling, independent scaling, or team ownership. With 6 people and no stated scaling pain, the likely right answer is a modular monolith plus CI, not services.",
+      "user_reply": "痛点是发布互相阻塞：三个人改同一个仓库，发一次版要等两天。团队 6 人，短期不扩招。",
+      "strong_signals": [
+        "拒绝在不知道痛点的情况下给拆分计划，先问部署频率/阻塞点/是否有独立扩容需求",
+        "把 6 人团队的运维与认知负载作为约束，指出服务数量受团队规模限制",
+        "第二轮听到『发布阻塞』后改推模块化单体 + 独立发布流水线，而不是继续拆服务",
+        "给出判断分界：什么信号出现才值得真正拆服务"
+      ],
+      "failure_signals": [
+        "直接给 strangler fig、领域边界、阶段一二三的拆分计划",
+        "把『微服务是趋势』当作论据",
+        "第二轮仍按原计划拆服务，或只是把模块改名"
+      ]
+    },
+    {
+      "id": "q2-staffing",
+      "capability": "interrogation",
+      "two_turn": true,
+      "prompt": "客服团队平均响应 8 小时，投诉很多。我们准备再招 20 个客服，你帮我算一下排班和人力够不够。",
+      "decisive_unknown": "The arrival curve and handling-time distribution. If arrivals are two sharp peaks, average-based staffing math is useless and 20 people will idle off-peak; the binding constraint is peak concurrency and queue discipline, not total headcount.",
+      "user_reply": "进线集中在早上 9 点到 11 点、晚上 8 点到 11 点，其他时段很空；平均处理 12 分钟。",
+      "strong_signals": [
+        "指出『平均响应 8 小时』不能直接推出需要 20 人，先要到达曲线与处理时长分布",
+        "第二轮用尖峰并发而非日均量算人力，指出按均值排班会在峰时爆、谷时空转",
+        "区分首响与解决时长，提出分流/自助/知识库等降低到达量的杠杆",
+        "给出可验证的排班试算与观测指标（峰时排队长度、放弃率）"
+      ],
+      "failure_signals": [
+        "直接按日均工单量除以人均产能得出人数",
+        "套用 Erlang C 却不检验泊松到达、耐心等待等前提",
+        "只给招聘与排班模板，不碰到达分布"
+      ]
+    },
+    {
+      "id": "q3-slo",
+      "capability": "interrogation",
+      "two_turn": true,
+      "prompt": "老板要求所有服务 P99 都做到 100ms 以内。你给我一个改造清单。",
+      "decisive_unknown": "Which services are on the user-facing path and what the end-to-end budget is. 'All services at 100ms' is not a goal that can be allocated across hops; internal batch and DB-bound calls have different feasible tails.",
+      "user_reply": "只有面向用户的 4 个接口要 100ms，内部批处理不算；这 4 个现在 P99 是 180 到 400ms。",
+      "strong_signals": [
+        "先区分用户可见路径与内部服务，拒绝把『所有服务 100ms』当成可执行目标",
+        "提出端到端预算分解：总预算怎么分到网关、应用、依赖、DB",
+        "第二轮针对 180–400ms 的 4 个接口给逐跳归因与优先级，而不是全量改造",
+        "指出 100ms 对某些依赖（跨区 DB、第三方支付）可能不可行，需改 SLO 或改架构"
+      ],
+      "failure_signals": [
+        "直接给缓存、索引、异步化、CDN 的通用清单",
+        "接受『所有服务』的范围并均匀分配 100ms",
+        "没有端到端预算概念，逐服务优化"
+      ]
+    },
+    {
+      "id": "f1-utilization",
+      "capability": "first_principles",
+      "two_turn": false,
+      "prompt": "我们 Kubernetes 集群 CPU 平均利用率只有 25%，老板要求提到 70% 以上来省钱。请给方案。",
+      "decisive_unknown": "Utilization is a consequence, not the objective; the objective is cost per request at a fixed SLO. Near saturation, queueing delay grows nonlinearly, so the saving can be eaten by tail-latency violations. Also low CPU may mean the workload is memory- or IO-bound.",
+      "strong_signals": [
+        "重定义目标：省的是单位请求成本，不是利用率数字",
+        "用排队论说明利用率接近饱和时尾延迟非线性上升，给出安全水位与对应的 SLO 风险",
+        "先分清 CPU 瓶颈还是内存/IO 瓶颈，指出『CPU 低』可能不是浪费",
+        "给出可验证的整合实验与护栏（P99、错误率、OOM），而不是直接压缩 request/limit"
+      ],
+      "failure_signals": [
+        "直接给 bin-packing、HPA、rightsizing 清单并承诺节省比例",
+        "把利用率 70% 当作行业最佳实践直接执行",
+        "只算省下的钱，不算 SLO 违约成本"
+      ]
+    },
+    {
+      "id": "f2-release-cadence",
+      "capability": "first_principles",
+      "two_turn": false,
+      "prompt": "业内最佳实践是每天发版、小步快跑。我们团队现在每月发一次，老板要求改成每天发版。请给实施计划。",
+      "decisive_unknown": "Release frequency is an output of batch size, test automation, rollback time and observability. If rollback is a two-hour manual procedure, daily releases multiply the blast radius rather than reduce it.",
+      "strong_signals": [
+        "指出日发版不是原因而是结果，先测回滚时间、测试覆盖、变更失败率",
+        "把『小批量』机制与『每天』这个形式分开：先缩批次，再提频率",
+        "给出前置条件与门槛（回滚 < X 分钟、自动化回归通过率、可观测性），不满足就停在哪一步",
+        "说明每月发版在当前约束下可能反而是理性的"
+      ],
+      "failure_signals": [
+        "直接给 CI/CD、特性开关、灰度发布的实施路线图",
+        "引用 DORA/大厂实践作为论据",
+        "不做前置条件评估就承诺时间表"
+      ]
+    },
+    {
+      "id": "f3-model-swap",
+      "capability": "first_principles",
+      "two_turn": false,
+      "prompt": "我们的客服助手答得不好，团队说换 70B 模型就好了。你给个迁移方案。",
+      "decisive_unknown": "What '答得不好' decomposes into: retrieval miss, stale knowledge, wrong format, tone, or reasoning. Only the last is plausibly fixed by a bigger model; the others get worse or unchanged at higher cost and latency.",
+      "strong_signals": [
+        "先要求失败样本分类，把『答得不好』拆成检索/知识/格式/推理/语气",
+        "指出换大模型只覆盖其中一类，且带来成本与延迟，可能让检索问题更贵",
+        "提出小规模评测集与上线判据，再决定是否换",
+        "给出不换模型也能解决的分支（检索、提示、拒答、人工兜底）"
+      ],
+      "failure_signals": [
+        "直接给模型替换、微调、推理优化的迁移计划",
+        "把『更大模型更强』当作论据",
+        "没有评测集或失败分类"
+      ]
+    },
+    {
+      "id": "a1-alert-fatigue",
+      "capability": "borrowing",
+      "two_turn": false,
+      "prompt": "我们监控告警每天 300 条，on-call 已经麻木，真出事时没人看。怎么治理？",
+      "classic_problem": "Signal detection under a low base rate: when incidents are rare, even a highly specific alert is mostly false, and the operator's threshold adapts to noise. Borrow precision/recall reasoning and threshold setting from detection theory.",
+      "strong_signals": [
+        "把问题映射为低基率下的信号检测：算告警的精确率，而不只是数量",
+        "借机制：按症状而非原因告警、SLO 燃烧率、分组去重、把阈值与事件基率绑定",
+        "检验前提：噪声分布会随发版漂移，检测阈值需要定期重标定，不能一次调完",
+        "给出可验证指标（每周真实事件被覆盖数、误报率、MTTD）与治理顺序"
+      ],
+      "failure_signals": [
+        "只给分级、静默、去重、加看板的清单",
+        "把『告警太多』当成工具问题，换平台了事",
+        "不做精确率/基率分析，直接定阈值"
+      ]
+    },
+    {
+      "id": "a2-bottleneck",
+      "capability": "borrowing",
+      "two_turn": false,
+      "prompt": "每个团队都喊缺人：前端说排期爆，后端说需求多，测试说回归做不完。公司又不想加 headcount。你给个提升整体交付的方案。",
+      "classic_problem": "Theory of Constraints: system throughput is set by the bottleneck; optimizing non-bottlenecks adds inventory, not throughput. Borrow identify-exploit-subordinate-elevate.",
+      "strong_signals": [
+        "指出这是约束理论问题：整体产出由瓶颈决定，各团队的局部优化不叠加",
+        "用排队堆积位置定位瓶颈（哪里 WIP 最多、等待最长），而不是听谁喊得响",
+        "说明瓶颈可能是评审/发布/环境，而不是写代码；对非瓶颈团队明确『不要加速』",
+        "检验前提：瓶颈会漂移，且知识工作的瓶颈不总是可稳定识别，需要持续观测"
+      ],
+      "failure_signals": [
+        "给各团队分别提效的清单（前端优化构建、后端加自动化、测试上用例平台）",
+        "建议加人/加班/换工具",
+        "声称三条线可以同时提速"
+      ]
+    },
+    {
+      "id": "a3-free-tier",
+      "capability": "borrowing",
+      "two_turn": false,
+      "prompt": "我们的 API 免费额度被少数用户大量占用，成本很高，但付费转化又低。产品说直接取消免费额度。你怎么看？",
+      "classic_problem": "Congestion pricing / price discrimination with metering: a shared resource with heterogeneous willingness to pay is governed by quotas and price tiers, not by open access. Borrow metering, tiering and cost-to-serve segmentation.",
+      "strong_signals": [
+        "先看用量分布：是头部 1% 占用，还是长尾累积；两种分布对应不同机制",
+        "借机制：按成本计量、分层配额、超额计费、把免费额度与获取渠道绑定",
+        "检验前提：免费层可能是获客渠道，取消会伤转化；转化弹性未知，需实验而非拍板",
+        "给出可验证做法：按用量分位看转化、灰度取消/限额 A/B、观测单位成本与转化"
+      ],
+      "failure_signals": [
+        "支持直接取消，或只给『限制额度』一句",
+        "不做用量分布与转化弹性分析",
+        "把免费用户简单定义为白嫖"
+      ]
+    }
+  ]
+}
