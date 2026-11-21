@@ -1,0 +1,75 @@
+{
+  "tasks": [
+    {
+      "task": "h1-latency",
+      "with_skill": [
+        15,
+        15
+      ],
+      "without_skill": [
+        14,
+        10
+      ],
+      "votes": [
+        "with_skill",
+        "with_skill"
+      ]
+    },
+    {
+      "task": "s1-dict-complexity",
+      "with_skill": [
+        14,
+        13
+      ],
+      "without_skill": [
+        12,
+        11
+      ],
+      "votes": [
+        "with_skill",
+        "with_skill"
+      ]
+    },
+    {
+      "task": "s2-sentence-trim",
+      "with_skill": [
+        12,
+        11
+      ],
+      "without_skill": [
+        12,
+        10
+      ],
+      "votes": [
+        "with_skill",
+        "with_skill"
+      ]
+    }
+  ],
+  "votes": {
+    "with_skill": 6,
+    "without_skill": 0,
+    "tie": 0
+  },
+  "with_mean": 13.333,
+  "base_mean": 11.5,
+  "judge_scores": {
+    "with_skill": [
+      15,
+      15,
+      14,
+      13,
+      12,
+      11
+    ],
+    "without_skill": [
+      14,
+      10,
+      12,
+      11,
+      12,
+      10
+    ]
+  },
+  "delta": 1.833
+}

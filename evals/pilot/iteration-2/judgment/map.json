@@ -1,0 +1,14 @@
+{
+  "h1-latency": {
+    "B": "with_skill",
+    "A": "without_skill"
+  },
+  "s1-dict-complexity": {
+    "A": "with_skill",
+    "B": "without_skill"
+  },
+  "s2-sentence-trim": {
+    "A": "with_skill",
+    "B": "without_skill"
+  }
+}
