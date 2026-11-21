@@ -59,7 +59,9 @@ Tashan 针对的是这些失效模式。它不提供领域知识，只约束思�
 
 随后按这两个失败模式打了三处补丁（答完即停、未给的数量是未知、高价决定要有一条能证伪的测试），复测 3 题 × 2 臂：6 个判定全部判给新版本，13.33 vs 11.50，且不再出现虚构「吞吐没掉」或 simple 题长篇。过程见 [evals/pilot/iteration-2/RESULT.md](evals/pilot/iteration-2/RESULT.md)。
 
-接着用一份等长的通用思考提示做对照（iteration-3，4 题，对照提示 3,678 字符 vs SKILL.md 4,193 字符）：skill 6:2 略胜，五维 14.25 vs 13.38，但两道量化分析题裁判各判一边。也就是说，相对「无提示」的优势里有一部分只是「被要求认真思考」带来的；目前稳定的差异集中在诊断题的未知量标注与可证伪测试、以及简单题上不展开。见 [evals/pilot/iteration-3/RESULT.md](evals/pilot/iteration-3/RESULT.md)。这仍不是通用提升的证据。
+接着用一份等长的通用思考提示做对照（iteration-3，4 题，对照提示 3,678 字符 vs SKILL.md 4,193 字符）：skill 6:2 略胜，五维 14.25 vs 13.38，但两道量化分析题裁判各判一边。也就是说，相对「无提示」的优势里有一部分只是「被要求认真思考」带来的；目前稳定的差异集中在诊断题的未知量标注与可证伪测试、以及简单题上不展开。见 [evals/pilot/iteration-3/RESULT.md](evals/pilot/iteration-3/RESULT.md)。
+
+又做了一次消融（iteration-4）：删掉第 4 步「经典问题 + 重组」后，4 题以 2:6 落后（13.25 vs 14.13），贡献集中在有真正同构经典问题的诊断/容量类题；但在纯算账题上这一步会多套一层框架、反而丢分。见 [evals/pilot/iteration-4/RESULT.md](evals/pilot/iteration-4/RESULT.md)。这仍不是通用提升的证据。
 
 欢迎通过 Issue 反馈使用效果与触发情况。
 

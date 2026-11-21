@@ -1,0 +1,18 @@
+{
+  "h1-latency": {
+    "B": "with_skill",
+    "A": "no_step4"
+  },
+  "h2-team-throughput": {
+    "B": "with_skill",
+    "A": "no_step4"
+  },
+  "h4-db-cost": {
+    "B": "with_skill",
+    "A": "no_step4"
+  },
+  "s1-dict-complexity": {
+    "A": "with_skill",
+    "B": "no_step4"
+  }
+}
