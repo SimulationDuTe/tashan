@@ -24,7 +24,7 @@ Reduce the result to one sentence: what has to be decided, allocated, or kept st
 
 ## 4. Find the classic problem, borrow its method, then rebuild
 
-Ask which classic problem the stripped-down statement is a variant of and name it; match the causal structure, not the domain. State in one sentence why the mapping holds: what causes what here, and what the classic method assumes. Mark which assumptions hold and what replaces each one that fails. Borrow mechanisms, not vocabulary. If no classic problem genuinely shares the structure, say so and continue without one.
+Ask which classic problem the stripped-down statement is a variant of, and test the mapping before writing it: name the causal structure, and state in one sentence what causes what here and which of the classic method's assumptions still hold. If you cannot do that, there is no usable mapping: skip this step entirely, say nothing about an analogy, and continue to the next step. Borrow mechanisms, not vocabulary; mark each assumption that fails and what replaces it.
 
 Then set the analogy aside and re-derive from the basic facts. A mature method carries its own field's constraints and a settled solution shape; this problem's constraints differ, so recombine the borrowed parts into what this problem needs — change the sequence, split a coupled step, keep the mechanism and drop the conventional form. If the re-derivation lands on the classic method for a reason you can state, keep it; otherwise follow the derivation.
 

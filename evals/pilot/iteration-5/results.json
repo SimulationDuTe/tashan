@@ -1,0 +1,61 @@
+{
+  "tasks": [
+    {
+      "task": "h1-latency",
+      "scores": {
+        "new_skill": [
+          15,
+          15
+        ],
+        "old_skill": [
+          14,
+          14
+        ]
+      },
+      "votes": [
+        "new_skill",
+        "new_skill"
+      ]
+    },
+    {
+      "task": "h4-db-cost",
+      "scores": {
+        "old_skill": [
+          14,
+          14
+        ],
+        "new_skill": [
+          15,
+          14
+        ]
+      },
+      "votes": [
+        "new_skill",
+        "tie"
+      ]
+    }
+  ],
+  "votes": {
+    "new_skill": 3,
+    "tie": 1
+  },
+  "means": {
+    "new_skill": 14.75,
+    "old_skill": 14.0
+  },
+  "judge_scores": {
+    "new_skill": [
+      15,
+      15,
+      15,
+      14
+    ],
+    "old_skill": [
+      14,
+      14,
+      14,
+      14
+    ]
+  },
+  "delta": 0.75
+}
