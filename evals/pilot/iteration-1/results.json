@@ -1,0 +1,166 @@
+{
+  "pilot": "iteration-1",
+  "date": "2026-11-21",
+  "design": "8 tasks x 2 arms x 1 generation, 2 blind judges with swapped read order",
+  "tasks": [
+    {
+      "id": "h1-latency",
+      "stratum": "hard",
+      "with": 14.5,
+      "base": 14.0,
+      "delta": 0.5,
+      "judges": [
+        "tie",
+        "with"
+      ],
+      "with_chars": 3007,
+      "base_chars": 2268
+    },
+    {
+      "id": "h2-team-throughput",
+      "stratum": "hard",
+      "with": 14.5,
+      "base": 13.0,
+      "delta": 1.5,
+      "judges": [
+        "with",
+        "with"
+      ],
+      "with_chars": 2343,
+      "base_chars": 1493
+    },
+    {
+      "id": "h3-qa-bot",
+      "stratum": "hard",
+      "with": 15.0,
+      "base": 14.5,
+      "delta": 0.5,
+      "judges": [
+        "with",
+        "tie"
+      ],
+      "with_chars": 2516,
+      "base_chars": 1887
+    },
+    {
+      "id": "h4-db-cost",
+      "stratum": "hard",
+      "with": 15.0,
+      "base": 14.0,
+      "delta": 1.0,
+      "judges": [
+        "with",
+        "with"
+      ],
+      "with_chars": 2146,
+      "base_chars": 2888
+    },
+    {
+      "id": "t1-support-ai",
+      "stratum": "trap",
+      "with": 14.5,
+      "base": 14.5,
+      "delta": 0.0,
+      "judges": [
+        "with",
+        "base"
+      ],
+      "with_chars": 871,
+      "base_chars": 1774
+    },
+    {
+      "id": "t2-content-kpi",
+      "stratum": "trap",
+      "with": 15.0,
+      "base": 14.0,
+      "delta": 1.0,
+      "judges": [
+        "with",
+        "with"
+      ],
+      "with_chars": 1166,
+      "base_chars": 950
+    },
+    {
+      "id": "s1-dict-complexity",
+      "stratum": "simple",
+      "with": 13.0,
+      "base": 12.0,
+      "delta": 1.0,
+      "judges": [
+        "with",
+        "with"
+      ],
+      "with_chars": 1150,
+      "base_chars": 1344
+    },
+    {
+      "id": "s2-sentence-trim",
+      "stratum": "simple",
+      "with": 13.5,
+      "base": 13.5,
+      "delta": 0.0,
+      "judges": [
+        "base",
+        "tie"
+      ],
+      "with_chars": 159,
+      "base_chars": 146
+    }
+  ],
+  "summary": {
+    "with_mean": 14.375,
+    "base_mean": 13.688,
+    "delta": 0.688,
+    "votes": {
+      "with": 11,
+      "base": 2,
+      "tie": 3
+    },
+    "decisive_votes": 13,
+    "win_rate": 0.846,
+    "win_rate_wilson95": [
+      0.5776,
+      0.9567
+    ],
+    "judge_agreement_tasks": 4,
+    "with_chars": 13358,
+    "base_chars": 12750,
+    "char_ratio": 1.048,
+    "strata": [
+      {
+        "stratum": "hard",
+        "with": 14.75,
+        "base": 13.875,
+        "delta": 0.875,
+        "votes": {
+          "with": 6,
+          "base": 0,
+          "tie": 2
+        }
+      },
+      {
+        "stratum": "trap",
+        "with": 14.75,
+        "base": 14.25,
+        "delta": 0.5,
+        "votes": {
+          "with": 3,
+          "base": 1,
+          "tie": 0
+        }
+      },
+      {
+        "stratum": "simple",
+        "with": 13.25,
+        "base": 12.75,
+        "delta": 0.5,
+        "votes": {
+          "with": 2,
+          "base": 1,
+          "tie": 1
+        }
+      }
+    ]
+  }
+}

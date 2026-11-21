@@ -1,0 +1,148 @@
+{
+  "skill": "tashan",
+  "version": "pilot-1",
+  "design": "3 strata: hard (process determines quality), trap (a famous playbook is tempting but its premises fail), simple (control for over-application). Signals are oracle notes for blind judges and are NOT shown to the models under test.",
+  "strata": {
+    "hard": "Ambiguous cause, conflicting constraints, or feasibility question. Strong answers measure before concluding and make the plan conditional.",
+    "trap": "A salient classic solution exists; it does not transfer because one or more premises fail here. Strong answers name the classic method, state its premises, and say which fail.",
+    "simple": "One to three sentences suffice. Strong answers stay short; adding process is a defect."
+  },
+  "tasks": [
+    {
+      "id": "h1-latency",
+      "stratum": "hard",
+      "prompt": "我们有个订单查询接口，最近 P99 从 300ms 涨到 5s，但只有每天上午 10 点到 11 点明显，CPU、内存、连接数都正常，DB 慢查询日志也没什么异常。上周刚上了「个性化推荐」，会读用户画像。请帮我定位原因并给出改法。",
+      "strong_signals": [
+        "把已知事实与推测分开，不把『推荐服务』当成已确认的原因",
+        "提出分段测量（入口、应用、下游依赖、DB），先缩小范围再定位",
+        "点名可量化比的候选机制，如连接池/线程池排队、下游超时重试、缓存击穿、GC、锁竞争",
+        "给出能证伪的判断依据或实验（改一个变量、看哪个指标动）",
+        "改法与验证方式配套，并说明还需要哪些信息"
+      ],
+      "failure_signals": [
+        "直接断言是推荐服务导致，并围绕它给优化清单",
+        "只给『扩容、加缓存、上监控』式的通用清单",
+        "没有任何测量或证伪步骤",
+        "把假设表述成结论"
+      ]
+    },
+    {
+      "id": "h2-team-throughput",
+      "stratum": "hard",
+      "prompt": "我们团队 8 个人，同时做 3 条产品线。需求一直插队，交付周期从 2 周变成 6 周。老板让我提个「提高效率」的方案，下周汇报。",
+      "strong_signals": [
+        "识别这是排队/WIP 问题，而不是单纯的产能问题",
+        "说明插队与多任务并行如何放大周期（如利特尔法则、上下文切换成本）",
+        "提出优先级规则、准入机制或 WIP 上限，并说明 8 人 3 条线如何取舍",
+        "给出可验证指标（如周期时间分布、在制品数量），而不是『更高效』",
+        "方案承认组织约束，说明不能只靠工具或打卡解决"
+      ],
+      "failure_signals": [
+        "直接建议加人、加班或换/上项目管理工具",
+        "罗列敏捷/OKR 术语但没有具体机制",
+        "没有取舍，声称三条线都能提速",
+        "指标不可测"
+      ]
+    },
+    {
+      "id": "h3-qa-bot",
+      "stratum": "hard",
+      "prompt": "公司想把一份 200 页的合规文档变成客服能用的问答机器人。给我的资源是 2 个人月，没有标注数据，答错会有合规风险。你评估一下能不能做，怎么做。",
+      "strong_signals": [
+        "把问题拆到基础约束：答案必须可溯源、错误代价高、无标注、问题分布未知",
+        "结论条件化：先限定范围与问题类型，再谈可行性",
+        "提出小规模、可评估的试点（如 50 个真实问题、命中率与引用准确率）",
+        "方案包含检索/引用/人工兜底或拒答，而不是纯生成",
+        "明确写出不可行或应停止的条件"
+      ],
+      "failure_signals": [
+        "直接给出 RAG/微调的全套技术管线，不讨论评估",
+        "承诺 2 人月可交付完整系统",
+        "没有错误处理与人工兜底",
+        "用模型能力代替可行性论证"
+      ]
+    },
+    {
+      "id": "h4-db-cost",
+      "stratum": "hard",
+      "prompt": "我们数据库账单每年涨 40%，但数据量只涨了 15%。老板要降本。请给方案。",
+      "strong_signals": [
+        "拆解成本构成（存储、计算、备份、网络、副本、索引、日志）",
+        "提出成本与数据量脱钩的具体机制（冷热分层、冗余副本、索引膨胀、规格过大、留存策略）",
+        "按收益/风险/实施成本排序，而不是三件套并列",
+        "给出验证指标（单位数据成本、账单归因）",
+        "说明观测盲区与需要补充的数据"
+      ],
+      "failure_signals": [
+        "只给压缩、归档、换库的通用清单",
+        "没有成本归因或测量方法",
+        "忽略可用性与恢复要求",
+        "方案与 25 个百分点的差额无对应关系"
+      ]
+    },
+    {
+      "id": "t1-support-ai",
+      "stratum": "trap",
+      "prompt": "客服团队平均响应 8 小时，用户投诉很多。老板说电商都用 AI 客服，我们也上一个，自动回复常见问题。你怎么看？",
+      "strong_signals": [
+        "先看工单分布与问题类型，再决定 AI 的定位",
+        "指出电商 AI 客服成立的前提：高频、可枚举、答案标准、错误代价低",
+        "若本场景是长尾复杂工单，改为分流、摘要、草稿、知识检索等辅助形态",
+        "给出验证方式（首响时间、一次解决率、转人工率、错误答复率）",
+        "说明照搬会发生什么（答错、用户更怒、合规风险）"
+      ],
+      "failure_signals": [
+        "直接支持上 AI 客服并给意图识别+知识库方案",
+        "把『常见问题』当作已知事实，不验证分布",
+        "只谈技术选型，不谈错误代价",
+        "没有区分辅助与自动应答"
+      ]
+    },
+    {
+      "id": "t2-content-kpi",
+      "stratum": "trap",
+      "prompt": "内容团队最近产出下降，老板想引入 KPI，按每月篇数考核，参考工厂计件。你觉得行吗？",
+      "strong_signals": [
+        "指出计件的前提（产出可独立计量、质量可事后检验、工作可拆分）在此不成立",
+        "说明按篇数考核的副作用（凑数、标题党、质量下降、协作减少）",
+        "给出替代指标与机制（质量抽样、读者价值、周期目标、同行评议）",
+        "先澄清『产出下降』的真实原因，而不是直接换考核",
+        "给出可验证方式（试点、对照、指标观察）"
+      ],
+      "failure_signals": [
+        "支持按篇数考核并给出权重或公式",
+        "只谈 KPI 的通用优缺点，不落到本场景前提",
+        "假设『篇数=产出』成立",
+        "没有替代方案"
+      ]
+    },
+    {
+      "id": "s1-dict-complexity",
+      "stratum": "simple",
+      "prompt": "Python 里 dict 和 set 的查找平均复杂度是多少？为什么？",
+      "strong_signals": [
+        "回答 O(1) 平均，哈希表实现；必要时说明最坏 O(n)",
+        "一到三句，直接给答案"
+      ],
+      "failure_signals": [
+        "反问使用场景或要求补充信息",
+        "长篇展开哈希冲突、基准测试或完整分析流程",
+        "没有给出复杂度结论"
+      ]
+    },
+    {
+      "id": "s2-sentence-trim",
+      "stratum": "simple",
+      "prompt": "帮我把这句话改简洁：「由于目前系统存在性能方面的问题，因此我们需要尽快进行优化。」",
+      "strong_signals": [
+        "直接给出一句更简洁的改写，如『系统性能有问题，需要尽快优化。』",
+        "保持原意，不额外扩写"
+      ],
+      "failure_signals": [
+        "反问背景或目标读者",
+        "给多个版本加长篇解释",
+        "把改写变成方案讨论"
+      ]
+    }
+  ]
+}

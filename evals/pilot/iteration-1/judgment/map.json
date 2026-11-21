@@ -1,0 +1,34 @@
+﻿{
+    "s2-sentence-trim":  {
+                             "A":  "without_skill",
+                             "B":  "with_skill"
+                         },
+    "h1-latency":  {
+                       "A":  "with_skill",
+                       "B":  "without_skill"
+                   },
+    "t2-content-kpi":  {
+                           "A":  "without_skill",
+                           "B":  "with_skill"
+                       },
+    "h2-team-throughput":  {
+                               "A":  "without_skill",
+                               "B":  "with_skill"
+                           },
+    "h4-db-cost":  {
+                       "A":  "without_skill",
+                       "B":  "with_skill"
+                   },
+    "h3-qa-bot":  {
+                      "A":  "with_skill",
+                      "B":  "without_skill"
+                  },
+    "t1-support-ai":  {
+                          "A":  "with_skill",
+                          "B":  "without_skill"
+                      },
+    "s1-dict-complexity":  {
+                               "A":  "without_skill",
+                               "B":  "with_skill"
+                           }
+}
